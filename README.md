@@ -1,7 +1,7 @@
 ## Школа программирования Maestro7IT
 
-![python.jpg](ing%2Fpython.jpg)
-![maestro7it_logo.jpg](ing%2Fmaestro7it_logo.jpg)
+![python.jpg](img%2Fpython.jpg)
+![maestro7it_logo.jpg](img%2Fmaestro7it_logo.jpg)
 
 
 #### Преподаватель: Дуплей Максим Игоревич
