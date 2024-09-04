@@ -51,6 +51,22 @@ games - Это массив, содержащий объекты, каждый �
 */
 ```
 
+```
+Uncharted 4: A Thief’s End
+Horizon: Zero Dawn
+Detroit: Become Human
+Marvel’s Spider-Man
+Red Dead Redemption 2
+Ratchet & Clank
+Mass Effect: Legendary Edition
+Gran Turismo 7
+The Last Guardian™
+God of War
+Final Fantasy VII Remake
+Bloodborne
+Persona 5
+```
+
 ### Запуск проекта
 
 Установка зависимостей:

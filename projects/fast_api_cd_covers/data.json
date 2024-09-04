@@ -6,7 +6,7 @@
         "release_year": 2016,
         "description": "Join Nathan Drake as he embarks on a globe-trotting adventure to uncover the truth behind a legendary pirate's lost treasure.",
         "photo_url": "/static/images/uncharted4.jpg",
-        "music_url": "https://example.com/music/uncharted4.mp3",
+        "music_url": "/static/music/uncharted4.mp3",
         "video_url": "https://example.com/videos/uncharted4.mp4"
     },
     {
