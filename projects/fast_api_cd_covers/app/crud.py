@@ -1,0 +1,51 @@
+'''
+CRUD операции
+'''
+
+# app/crud.py
+
+from sqlalchemy.orm import Session
+from . import models, schemas
+
+def get_game(db: Session, game_id: int):
+    return db.query(models.Game).filter(models.Game.id == game_id).first()
+
+def get_games(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Game).offset(skip).limit(limit).all()
+
+def create_game(db: Session, game: schemas.GameCreate):
+    db_game = models.Game(
+        title=game.title,
+        genre=game.genre,
+        release_year=game.release_year,
+        description=game.description,
+        photo_url=game.photo_url,
+        music_url=game.music_url,
+        video_url=game.video_url
+    )
+    db.add(db_game)
+    db.commit()
+    db.refresh(db_game)
+    return db_game
+
+def update_game(db: Session, game_id: int, game: schemas.GameUpdate):
+    db_game = get_game(db, game_id)
+    if db_game:
+        db_game.title = game.title
+        db_game.genre = game.genre
+        db_game.release_year = game.release_year
+        db_game.description = game.description
+        db_game.photo_url = game.photo_url
+        db_game.music_url = game.music_url
+        db_game.video_url = game.video_url
+        db.commit()
+        db.refresh(db_game)
+    return db_game
+
+def delete_game(db: Session, game_id: int):
+    db_game = get_game(db, game_id)
+    if db_game:
+        db.delete(db_game)
+        db.commit()
+    return db_game
+

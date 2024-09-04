@@ -3,11 +3,11 @@
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, Game
-from schemas import GameCreate
+from projects.fast_api_cd_covers.app.models import Game
+from projects.fast_api_cd_covers.app.schemas import GameCreate
 
 # Замените строку подключения на вашу
-DATABASE_URL = "sqlite:///./test.db"
+DATABASE_URL = "sqlite:///./games.db"
 
 # Создаем соединение с базой данных
 engine = create_engine(DATABASE_URL)
