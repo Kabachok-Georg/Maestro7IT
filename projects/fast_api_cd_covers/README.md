@@ -20,23 +20,41 @@ Bootstrap будет использоваться для стилизации н
 ```
 fast_api_cd_covers/
 │
-├── main.py                 # Основной файл приложения FastAPI
-├── models.py               # Модели SQLAlchemy
-├── schemas.py              # Pydantic схемы
-├── crud.py                 # CRUD операции
-├── database.py             # Подключение к базе данных
+├── app/
+│   ├── __init__.py         # Инициализация приложения
+│   ├── main.py             # Основной файл FastAPI с роутами и конфигурацией
+│   ├── crud.py             # Операции с базой данных
+│   ├── models.py           # Модели базы данных SQLAlchemy
+│   ├── schemas.py          # Схемы Pydantic для валидации данных
+│   └── database.py         # Настройка базы данных (SQLAlchemy)
 │
 ├── templates/              # Папка с HTML-шаблонами
-│   ├── index.html           # Главная страница со списком игр
-│   ├── game.html            # Страница подробной информации об игре
-│   └── add_game.html        # Форма для добавления новой игры
+│   ├── index.html          # Главная страница со списком игр
+│   ├── game.html           # Страница подробной информации об игре
+│   ├── game_detail.html    # Детальная информация об игре
+│   ├── base.html           # Базовый шаблон HTML
+│   ├── add_game.html       # Форма для добавления новой игры
+│   ├── edit_game.html      # Изменение информации об игре
+│   └── error.html          # Страница 404
 │
 ├── static/                 # Папка со статическими файлами
 │   ├── css/
 │   │   └── bootstrap.min.css # Bootstrap CSS
-│   └── js/
-│       └── bootstrap.bundle.min.js # Bootstrap JS
+│   ├── images/
+│   │    ├── image_1.jpg
+│   │    ├── image_2.jpg
+│   │    └── image_3.jpg
+│   ├── js/
+│   │   └── bootstrap.bundle.min.js # Bootstrap JS
+│   └── music/
+│       ├── music_1.mp3
+│       ├── music_2.mp3
+│       └── music_3.mp3
 │
+├── .gitignore              
+├── data.json               # Файл с данными в формате JSON
+├── games.db                # База данных
+├── load_data.py            # Функция для загрузки данных в BD
 ├── requirements.txt        # Файл зависимостей
 └── README.md               # Файл с описанием проекта
 ```
