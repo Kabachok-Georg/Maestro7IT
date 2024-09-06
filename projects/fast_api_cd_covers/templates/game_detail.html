@@ -1,6 +1,4 @@
 <!-- templates/game_detail.html -->
-<!-- templates/game_detail.html -->
-
 {% extends "base.html" %}
 
 {% block title %}{{ game.title }} - Детали{% endblock %}
@@ -20,15 +18,19 @@
                 <p><strong>Жанр:</strong> {{ game.genre }}</p>
                 <p><strong>Год выпуска:</strong> {{ game.release_year }}</p>
                 <p><strong>Описание:</strong> {{ game.description }}</p>
+
+                <!-- Музыкальный трек, если есть -->
                 {% if game.music_url %}
                     <div class="mb-4">
                         <h4>Музыкальный трек</h4>
-                        <audio controls class="d-block w-100">
+                        <audio id="audio-player" controls class="d-block w-100">
                             <source src="{{ game.music_url }}" type="audio/mpeg">
                             Ваш браузер не поддерживает воспроизведение аудио.
                         </audio>
                     </div>
                 {% endif %}
+
+                <!-- Видео трейлер, если есть -->
                 {% if game.video_url %}
                     <div class="mb-4">
                         <h4>Видео трейлер</h4>
@@ -38,6 +40,8 @@
                         </video>
                     </div>
                 {% endif %}
+
+                <!-- Кнопки действий -->
                 <div class="mb-4">
                     <a href="/games/{{ game.id }}/edit" class="btn btn-warning">Редактировать</a>
                     <form action="/games/{{ game.id }}/delete" method="post" class="d-inline">
@@ -48,4 +52,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Подключение скриптов -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('audio-player');
+            if (audioPlayer) {
+                const player = new Plyr(audioPlayer, {
+                    controls: [
+                        'play', 'progress', 'current-time', 'duration', 'volume', 'settings',
+                        'pip', 'mute', 'fullscreen'
+                    ],
+                    seekTime: 10,  // Шаг перемотки в секундах
+                    speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },  // Настройки скорости воспроизведения
+                    tooltips: { controls: true },  // Всплывающие подсказки
+                    volume: 0.8,  // Начальный уровень громкости
+                    storage: { enabled: true, key: 'plyr_audio' },  // Сохранение состояния плеера в локальном хранилище
+                    clickToPlay: true, // Воспроизведение при клике на плеер
+                    keyboard: { focused: true, global: true }, // Управление с клавиатуры
+                    autoplay: false,  // Автоматическое воспроизведение
+                    muted: false, // Включить/выключить звук при загрузке
+                    captions: { active: true, language: 'auto' }, // Поддержка субтитров
+                    ads: { enabled: false } // Поддержка рекламы (если применимо)
+                });
+
+                // Пример кастомного события
+                player.on('play', () => {
+                    console.log('Audio started playing');
+                });
+
+                // Пример обработки ошибок
+                player.on('error', (event) => {
+                    console.error('An error occurred:', event.detail);
+                });
+            }
+        });
+    </script>
 {% endblock %}

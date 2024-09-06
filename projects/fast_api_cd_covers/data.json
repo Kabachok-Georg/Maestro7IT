@@ -16,7 +16,7 @@
         "release_year": 2017,
         "description": "In a lush, post-apocalyptic world overrun by robotic creatures, follow Aloy as she uncovers her past and the secrets of a forgotten world.",
         "photo_url": "/static/images/horizon_zero_dawn.jpg",
-        "music_url": "https://example.com/music/horizon_zero_dawn.mp3",
+        "music_url": "/static/music/horizon_zero_dawn.mp3",
         "video_url": "https://example.com/videos/horizon_zero_dawn.mp4"
     },
     {
@@ -26,7 +26,7 @@
         "release_year": 2018,
         "description": "Set in a near-future Detroit, where androids are part of everyday life, the game explores themes of artificial intelligence, freedom, and what it means to be human.",
         "photo_url": "/static/images/detroit_become_human.jpg",
-        "music_url": "https://example.com/music/detroit_become_human.mp3",
+        "music_url": "/static/music/detroit_become_human.mp3",
         "video_url": "https://example.com/videos/detroit_become_human.mp4"
     },
     {
@@ -36,7 +36,7 @@
         "release_year": 2018,
         "description": "Experience the life of Spider-Man as he swings through New York City, fighting crime and dealing with personal struggles.",
         "photo_url": "/static/images/marvel_spider_man.jpg",
-        "music_url": "https://example.com/music/marvel_spider_man.mp3",
+        "music_url": "/static/music/marvel_spider_man.mp3",
         "video_url": "https://example.com/videos/marvel_spider_man.mp4"
     },
     {
@@ -46,7 +46,7 @@
         "release_year": 2018,
         "description": "Follow Arthur Morgan and the Van der Linde gang as they navigate the American frontier in the final days of the Old West.",
         "photo_url": "/static/images/red_dead_redemption_2.jpg",
-        "music_url": "https://example.com/music/red_dead_redemption_2.mp3",
+        "music_url": "/static/music/red_dead_redemption_2.mp3",
         "video_url": "https://example.com/videos/red_dead_redemption_2.mp4"
     },
     {
@@ -56,7 +56,7 @@
         "release_year": 2016,
         "description": "Join Ratchet and Clank on an intergalactic adventure filled with high-flying action and inventive weapons.",
         "photo_url": "/static/images/ratchet_clank.jpg",
-        "music_url": "https://example.com/music/ratchet_clank.mp3",
+        "music_url": "/static/music/ratchet_clank.mp3",
         "video_url": "https://example.com/videos/Ratchet & Clank.mp4"
     },
     {
@@ -66,7 +66,7 @@
         "release_year": 2021,
         "description": "Experience the epic Mass Effect trilogy in a single remastered package with improved visuals and gameplay.",
         "photo_url": "/static/images/mass_effect_legendary_edition.jpg",
-        "music_url": "https://example.com/music/mass_effect_legendary_edition.mp3",
+        "music_url": "/static/music/mass_effect_legendary_edition.mp3",
         "video_url": "https://example.com/videos/mass_effect_legendary_edition.mp4"
     },
     {
@@ -76,7 +76,7 @@
         "release_year": 2022,
         "description": "The ultimate racing simulator with a wide range of cars, tracks, and detailed customization options.",
         "photo_url": "/static/images/gran_turismo_7.jpg",
-        "music_url": "https://example.com/music/gran_turismo_7.mp3",
+        "music_url": "/static/music/gran_turismo_7.mp3",
         "video_url": "https://example.com/gran_turismo_7videos.mp4"
     },
     {
@@ -86,7 +86,7 @@
         "release_year": 2016,
         "description": "A heartwarming tale of a young boy and his giant, feathered companion as they navigate a mysterious and ancient world.",
         "photo_url": "/static/images/the_last_guardian.jpg",
-        "music_url": "https://example.com/music/the_last_guardian.mp3",
+        "music_url": "/static/music/the_last_guardian.mp3",
         "video_url": "https://example.com/videos/the_last_guardian.mp4"
     },
     {
@@ -96,7 +96,7 @@
         "release_year": 2018,
         "description": "Follow Kratos, the former God of War, as he embarks on a journey through Norse mythology with his son, Atreus.",
         "photo_url": "/static/images/god_of_war.jpg",
-        "music_url": "https://example.com/music/god_of_war.mp3",
+        "music_url": "/static/music/god_of_war.mp3",
         "video_url": "https://example.com/videos/god_of_war.mp4"
     },
     {
@@ -106,7 +106,7 @@
         "release_year": 2020,
         "description": "Revisit the classic RPG with modern graphics and a reimagined story, featuring Cloud Strife and his allies fighting against the corrupt Shinra Corporation.",
         "photo_url": "/static/images/final_fantasy_vii_remake.jpg",
-        "music_url": "https://example.com/music/final_fantasy_vii_remake.mp3",
+        "music_url": "/static/music/final_fantasy_vii_remake.mp3",
         "video_url": "https://example.com/videos/final_fantasy_vii_remake.mp4"
     },
     {
@@ -116,7 +116,7 @@
         "release_year": 2015,
         "description": "Explore the dark and gothic world of Yharnam as a hunter battling nightmarish creatures and uncovering the city's twisted secrets.",
         "photo_url": "/static/images/bloodborne.jpg",
-        "music_url": "https://example.com/music/bloodborne.mp3",
+        "music_url": "/static/music/bloodborne.mp3",
         "video_url": "https://example.com/videos/bloodborne.mp4"
     },
     {
@@ -126,7 +126,7 @@
         "release_year": 2016,
         "description": "Join the Phantom Thieves as they navigate high school life and a parallel world of cognitive distortion, fighting to change society for the better.",
         "photo_url": "/static/images/persona_5.jpg",
-        "music_url": "https://example.com/music/persona_5.mp3",
+        "music_url": "/static/music/persona_5.mp3",
         "video_url": "https://example.com/videos/persona_5.mp4"
     }
 ]

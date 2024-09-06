@@ -34,7 +34,9 @@ def load_data_from_json(json_file: str):
             genre=item.get('genre'),
             release_year=item.get('release_year'),
             description=item.get('description'),
-            photo_url=item.get('photo_url')
+            photo_url=item.get('photo_url'),
+            music_url=item.get('music_url'),
+            video_url=item.get('video_url')
         )
 
         # Добавляем данные в базу
@@ -43,7 +45,9 @@ def load_data_from_json(json_file: str):
             genre=game_data.genre,
             release_year=game_data.release_year,
             description=game_data.description,
-            photo_url=game_data.photo_url
+            photo_url=game_data.photo_url,
+            music_url=game_data.music_url,
+            video_url=game_data.video_url
         )
 
         db.add(db_game)
