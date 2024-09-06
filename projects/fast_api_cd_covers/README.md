@@ -26,6 +26,8 @@ fast_api_cd_covers/
 │   ├── crud.py             # Операции с базой данных
 │   ├── models.py           # Модели базы данных SQLAlchemy
 │   ├── schemas.py          # Схемы Pydantic для валидации данных
+│   ├── auth.py             # JWT и логика аутентификации
+│   ├── utils.py            # Хэширование паролей
 │   └── database.py         # Настройка базы данных (SQLAlchemy)
 │
 ├── templates/              # Папка с HTML-шаблонами
@@ -51,7 +53,8 @@ fast_api_cd_covers/
 │       ├── music_2.mp3
 │       └── music_3.mp3
 │
-├── .gitignore              
+├── .gitignore              # Файл .gitignore
+├── .env                    # Конфигурация секретных ключей
 ├── data.json               # Файл с данными в формате JSON
 ├── games.db                # База данных
 ├── load_data.py            # Функция для загрузки данных в BD
@@ -92,6 +95,7 @@ games - Это массив, содержащий объекты, каждый �
 Установка зависимостей:
 ```
 `pip install -r requirements.txt`
+pip install fastapi sqlalchemy passlib bcrypt jose uvicorn
 ```
 
 Запустите FastAPI приложение с помощью Uvicorn:
