@@ -3,8 +3,6 @@
 '''
 from datetime import timedelta
 
-# app/main.py
-
 from fastapi import FastAPI, HTTPException, Depends, Request, Form, status, utils
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -14,14 +12,20 @@ from flask import request
 from sqlalchemy.orm import Session
 from typing import Optional
 
-from . import models, schemas, crud, auth
+from .utils import hash_password, verify_password
+
+from . import models, schemas, crud, auth, utils
 from .auth import create_access_token
-from .database import engine, SessionLocal
+from .database import engine, SessionLocal, get_db
+
+import logging
 
 # Создание таблиц в базе данных
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+logger = logging.getLogger(__name__)
 
 # Подключение статических файлов
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -139,11 +143,11 @@ async def delete_game(game_id: int, db: Session = Depends(get_db)):
 async def register_form(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
-
+# Форма регистрации пользователя
 @app.post("/register", response_class=HTMLResponse)
 async def register_user(request: Request, db: Session = Depends(get_db),
-                        username: str = Form(...), password: str = Form(...),
-                        password_repeat: str = Form(...)):
+                        username: str = Form(...), email: str = Form(...),
+                        password: str = Form(...), password_repeat: str = Form(...)):
     if password != password_repeat:
         return templates.TemplateResponse("register.html", {"request": request, "error": "Пароли не совпадают"})
 
@@ -152,7 +156,7 @@ async def register_user(request: Request, db: Session = Depends(get_db),
         return templates.TemplateResponse("register.html", {"request": request, "error": "Пользователь уже существует"})
 
     hashed_password = utils.hash_password(password)
-    crud.create_user(db, schemas.UserCreate(username=username, password=hashed_password))
+    crud.create_user(db, schemas.UserCreate(username=username, email=email, password=hashed_password))
     return RedirectResponse(url="/login", status_code=303)
 
 
@@ -165,7 +169,13 @@ async def login_form(request: Request):
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = crud.get_user_by_username(db, username=form_data.username)
-    if not user or not utils.verify_password(form_data.password, user.password):
+
+    if not user:
+        logger.warning("User not found")
+        raise HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
+
+    if not utils.verify_password(form_data.password, user.hashed_password):
+        logger.warning("Password verification failed")
         raise HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
 
     access_token_expires = timedelta(minutes=15)
