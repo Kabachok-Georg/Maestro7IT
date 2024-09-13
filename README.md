@@ -6,8 +6,8 @@
 ### Решение заданий Kata Training с сайта Codewars
 1. Convert to Binary (8 kyu)
 2. Convert boolean values to strings 'Yes' or 'No'. (8 kyu)
-3. 3
-4. 4
+3. Isograms (7 kyu)
+4. Unique In Order (6 kyu)
 5. 5
 6. 6
 7. 7
