@@ -1,72 +1,20 @@
+'''
+
+'''
+
 from plus import plus
 from minus import minus
 from umn import umn
 from delit import delit
 
-sigh=input("Введите знак для выполнения желаемого вами действия ")
+sigh=input("Введите знак для выполнения желаемого вами действия: +, -, *, / \n")
 if sigh=='+':
-    print(plus(f_num=int(input("Введите первое число ")),s_num=int(input("Введите второе число "))))
+    print(plus(f_num=int(input("Введите первое число: ")),s_num=int(input("Введите второе число: "))))
 elif sigh=='-':
-    print(minus(f_num=int(input("Введите первое число ")),s_num=int(input("Введите второе число "))))
+    print(minus(f_num=int(input("Введите первое число: ")),s_num=int(input("Введите второе число: "))))
 elif sigh=='*':
-    print(umn(f_num=int(input("Введите первое число ")),s_num=int(input("Введите второе число "))))
+    print(umn(f_num=int(input("Введите первое число: ")),s_num=int(input("Введите второе число: "))))
 elif sigh=='/':
-    print(delit(f_num=int(input("Введите первое число ")),s_num=int(input("Введите второе число "))))
+    print(delit(f_num=int(input("Введите первое число: ")),s_num=int(input("Введите второе число: "))))
 else:
     print('Неверный символ')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-
-
-'''
