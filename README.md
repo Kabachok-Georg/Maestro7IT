@@ -8,13 +8,19 @@
 2. Convert boolean values to strings 'Yes' or 'No'. (8 kyu)
 3. Isograms (7 kyu)
 4. Unique In Order (6 kyu)
-5. 5
-6. 6
-7. 7
-8. 8
-9. 9
-10. 10
 
+5. String ends with ? (7 kyu)
+6. Reverse words (7 kyu)
+7. Sum of Digits / Digital Root (6 kyu)
+8. Counting Duplicates (6 kyu)
+9. Vowel Count (7 kyu)
+10. Are they the "same" ? (6 kyu)
+11. Sort the odd (6 kyu)
+
+12. 12
+13. 13
+14. 14
+15. 15
 
 
 **Преподаватель:** Дуплей Максим Игоревич
