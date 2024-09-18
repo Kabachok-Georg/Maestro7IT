@@ -16,8 +16,8 @@
 9. Vowel Count (7 kyu)
 10. Are they the "same" ? (6 kyu)
 11. Sort the odd (6 kyu)
+12. Extract the domain name from a URL (5 kyu)
 
-12. 12
 13. 13
 14. 14
 15. 15
