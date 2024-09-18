@@ -18,10 +18,14 @@
 11. Sort the odd (6 kyu)
 12. Extract the domain name from a URL (5 kyu)
 
-13. 13
+![6 kyu](img/6_kyu.png)
+
+13. Split Strings (6 kyu) Д/З
 14. 14
 15. 15
 
+
+![dupley_maxim_igorevich](img/dupley_maxim_igorevich.png)
 
 **Преподаватель:** Дуплей Максим Игоревич
 
