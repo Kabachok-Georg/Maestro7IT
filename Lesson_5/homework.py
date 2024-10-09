@@ -4,16 +4,15 @@
 Генерация последовательности Фибоначчи до заданного числа.
 '''
 
-'''fib_num=int(input("Введите число"))
-a=0
-b=1
-c=a+b
-if c<=0:
+def fibonacci_up_to_n(n):
+    fib_sequence = []
+    a, b = 0, 1
+    while a <= n:
+        fib_sequence.append(a)
+        a, b = b, a + b
+    return fib_sequence
 
-
-
-
-print()'''
+print(fibonacci_up_to_n(100))
 
 # TODO: Заметки
 ## Преподаватель: Дуплей Максим Игоревич
