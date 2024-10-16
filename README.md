@@ -40,6 +40,24 @@
 27. Simple Pig Latin (5 kyu)
 28. The observed PIN (4 kyu)
 
+29. Convert number to reversed array of digits (8 kyu)
+30. Calculate BMI (8 kyu)
+31. Find the smallest integer in the array (8 kyu)
+32. Century From Year (8 kyu)
+
+33. Function 1 - hello world (8 kyu)
+34. Array.diff (6 kyu)
+35. MakeUpperCase (8 kyu)
+36. Abbreviate a Two Word Name (8 kyu)
+37. Beginner - Reduce but Grow (8 kyu)
+38. 2
+39. 3
+
+
+![5_kyu.png](img/5_kyu.png)
+
+
+
 ![dupley_maxim_igorevich](img/dupley_maxim_igorevich.png)
 
 **Преподаватель:** Дуплей Максим Игоревич

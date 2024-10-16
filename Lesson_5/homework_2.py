@@ -16,9 +16,6 @@ generated_password = generate_password(password_length)
 print("Ваш сгенерированный пароль:", generated_password)
 
 
-
-
-
 # TODO: Заметки
 ## Преподаватель: Дуплей Максим Игоревич
 ## Дата: 08.10.2024
