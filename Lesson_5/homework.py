@@ -12,8 +12,8 @@ def fibonacci_up_to_n(n):
         a, b = b, a + b
     return fib_sequence
 
-print(fibonacci_up_to_n(100))
+print(fibonacci_up_to_n(250))
 
 # TODO: Заметки
 ## Преподаватель: Дуплей Максим Игоревич
-## Дата: --.--.2024
+## Дата: 16.10.2024
