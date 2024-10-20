@@ -1,0 +1,14 @@
+fastapi[all]
+uvicorn
+pydantic
+sqlalchemy
+sqlite
+jinja2
+aiofiles
+python-multipart
+passlib
+bcrypt
+jose
+python-dotenv
+pydantic[email]
+python-jose

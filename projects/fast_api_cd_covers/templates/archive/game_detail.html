@@ -1,0 +1,51 @@
+<!-- templates/game_detail.html -->
+<!-- templates/game_detail.html -->
+
+{% extends "base.html" %}
+
+{% block title %}{{ game.title }} - Детали{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>{{ game.title }}</h1>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                {% if game.photo_url %}
+                    <img src="{{ game.photo_url }}" class="img-fluid" alt="Изображение {{ game.title }}">
+                {% else %}
+                    <img src="/static/images/default_cover.jpg" class="img-fluid" alt="Изображение {{ game.title }}">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <p><strong>Жанр:</strong> {{ game.genre }}</p>
+                <p><strong>Год выпуска:</strong> {{ game.release_year }}</p>
+                <p><strong>Описание:</strong> {{ game.description }}</p>
+                {% if game.music_url %}
+                    <div class="mb-4">
+                        <h4>Музыкальный трек</h4>
+                        <audio controls class="d-block w-100">
+                            <source src="{{ game.music_url }}" type="audio/mpeg">
+                            Ваш браузер не поддерживает воспроизведение аудио.
+                        </audio>
+                    </div>
+                {% endif %}
+                {% if game.video_url %}
+                    <div class="mb-4">
+                        <h4>Видео трейлер</h4>
+                        <video controls class="d-block w-100">
+                            <source src="{{ game.video_url }}" type="video/mp4">
+                            Ваш браузер не поддерживает воспроизведение видео.
+                        </video>
+                    </div>
+                {% endif %}
+                <div class="mb-4">
+                    <a href="/games/{{ game.id }}/edit" class="btn btn-warning">Редактировать</a>
+                    <form action="/games/{{ game.id }}/delete" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту игру?');">Удалить</button>
+                    </form>
+                    <a href="/" class="btn btn-secondary">Вернуться к списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

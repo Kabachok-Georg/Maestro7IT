@@ -1,0 +1,55 @@
+<!-- Главная страница -->
+
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Главная - Список игр{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Список игр</h1>
+
+        <!-- Форма поиска -->
+        <form method="get" action="/">
+            <div class="input-group mb-4">
+                <input type="text" name="title" class="form-control" placeholder="Название игры" aria-label="Название игры">
+                <input type="number" name="release_year" class="form-control" placeholder="Год выпуска" aria-label="Год выпуска">
+                <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+            </div>
+        </form>
+
+        {% if games %}
+            <div class="row">
+                {% for game in games %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            {% if game.photo_url %}
+                                <img src="{{ game.photo_url }}" class="card-img-top img-fluid" alt="Изображение {{ game.title }}">
+                            {% else %}
+                                <img src="/static/images/default_cover.jpg" class="card-img-top img-fluid" alt="Изображение {{ game.title }}">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ game.title }}</h5>
+                                <p class="card-text">
+                                    {{ game.description[:100] }}{% if game.description|length > 100 %}...{% endif %}
+                                </p>
+                                <div class="mt-auto">
+                                    <a href="/games/{{ game.id }}" class="btn btn-primary">Подробнее</a>
+                                    <a href="/games/{{ game.id }}/edit" class="btn btn-warning">Редактировать</a>
+                                    <form action="/games/{{ game.id }}/delete" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту игру?');">Удалить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Игр пока нет. Добавьте новую игру, нажав на кнопку ниже.</p>
+        {% endif %}
+
+        <a href="/add" class="btn btn-success mt-4">Добавить новую игру</a>
+    </div>
+{% endblock %}
