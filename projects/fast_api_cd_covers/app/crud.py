@@ -1,17 +1,14 @@
 '''
 CRUD операции
 '''
-
 # app/crud.py
 
 from sqlalchemy.orm import Session
 from . import models, schemas, utils
+from typing import Optional
 
 def get_game(db: Session, game_id: int):
     return db.query(models.Game).filter(models.Game.id == game_id).first()
-
-def get_games(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Game).offset(skip).limit(limit).all()
 
 def create_game(db: Session, game: schemas.GameCreate):
     db_game = models.Game(
@@ -63,3 +60,15 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
+
+
+def get_games(db: Session, title: Optional[str] = None, release_year: Optional[int] = None):
+    query = db.query(models.Game)
+
+    if title:
+        query = query.filter(models.Game.title.ilike(f"%{title}%"))
+    if release_year is not None:  # Проверяем на None вместо True
+        query = query.filter(models.Game.release_year == release_year)
+
+    return query.all()
+

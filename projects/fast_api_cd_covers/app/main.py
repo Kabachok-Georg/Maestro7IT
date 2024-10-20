@@ -49,8 +49,18 @@ def protected_route(current_user: schemas.User = Depends(auth.get_current_user))
 
 # Главная страница - список игр
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request, db: Session = Depends(get_db)):
-    games = crud.get_games(db)
+async def read_root(
+        request: Request,
+        title: Optional[str] = None,
+        release_year: Optional[str] = None,
+        db: Session = Depends(get_db)
+):
+    release_year_int = int(release_year) if release_year else None
+    if title is None and release_year_int is None:
+        games = crud.get_games(db)  # Получаем все игры
+    else:
+        games = crud.get_games(db, title=title, release_year=release_year_int)
+
     return templates.TemplateResponse("index.html", {"request": request, "games": games})
 
 

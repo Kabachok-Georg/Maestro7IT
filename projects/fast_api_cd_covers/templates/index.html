@@ -10,6 +10,15 @@
     <div class="container mt-4">
         <h1 class="mb-4">Список игр</h1>
 
+        <!-- Форма поиска -->
+        <form method="get" action="/">
+            <div class="input-group mb-4">
+                <input type="text" name="title" class="form-control" placeholder="Название игры" aria-label="Название игры">
+                <input type="number" name="release_year" class="form-control" placeholder="Год выпуска" aria-label="Год выпуска">
+                <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+            </div>
+        </form>
+
         {% if games %}
             <div class="row">
                 {% for game in games %}
