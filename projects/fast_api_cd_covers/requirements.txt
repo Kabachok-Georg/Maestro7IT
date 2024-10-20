@@ -2,7 +2,6 @@ fastapi[all]
 uvicorn
 pydantic
 sqlalchemy
-databases
 sqlite
 jinja2
 aiofiles

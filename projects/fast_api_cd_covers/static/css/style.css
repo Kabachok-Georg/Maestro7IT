@@ -1,15 +1,86 @@
 /* static/css/style.css */
 
-/* Пример кастомных стилей */
+/* Общие стили */
 body {
     background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h4 {
     color: #343a40;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
+/* Карточки */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Заголовок карточки */
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    color: #495057;
+    margin: 1rem;
+}
+
+/* Фото в карточке */
+.img-fluid {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;  /* Оптимизация изображения */
+}
+
+.rounded-photo {
+    border-radius: 15px; /* Закругленные углы фото */
+}
+
+/* Кнопки */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
 }

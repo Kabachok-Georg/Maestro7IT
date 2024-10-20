@@ -8,46 +8,89 @@
         <h1>{{ game.title }}</h1>
         <div class="row mt-4">
             <div class="col-md-6">
-                {% if game.photo_url %}
-                    <img src="{{ game.photo_url }}" class="img-fluid" alt="Изображение {{ game.title }}">
-                {% else %}
-                    <img src="/static/images/default_cover.jpg" class="img-fluid" alt="Изображение {{ game.title }}">
-                {% endif %}
+                <div class="card">
+                    {% if game.photo_url %}
+                        <img src="{{ game.photo_url }}" class="img-fluid rounded-photo" alt="Изображение {{ game.title }}">
+                    {% else %}
+                        <img src="/static/images/default_cover.jpg" class="img-fluid rounded-photo" alt="Изображение {{ game.title }}">
+                    {% endif %}
+                </div>
             </div>
             <div class="col-md-6">
-                <p><strong>Жанр:</strong> {{ game.genre }}</p>
-                <p><strong>Год выпуска:</strong> {{ game.release_year }}</p>
-                <p><strong>Описание:</strong> {{ game.description }}</p>
+                <div class="card p-3">
+                    <p><strong>Жанр:</strong> {{ game.genre }}</p>
+                    <p><strong>Год выпуска:</strong> {{ game.release_year }}</p>
+                    <p><strong>Описание:</strong> {{ game.description }}</p>
 
-                <!-- Музыкальный трек, если есть -->
-                {% if game.music_url %}
+                    <!-- Музыкальный трек, если есть -->
+                    {% if game.music_url %}
+                        <div class="mb-4">
+                            <h4>Музыкальный трек</h4>
+                            <audio id="audio-player" controls class="d-block w-100">
+                                <source src="{{ game.music_url }}" type="audio/mpeg">
+                                Ваш браузер не поддерживает воспроизведение аудио.
+                            </audio>
+                        </div>
+                    {% endif %}
+
+                    <!-- Видео трейлер, если есть -->
+                    {% if game.video_url %}
+                        <div class="mb-4">
+                            <h4>Видео трейлер</h4>
+                            <video controls class="d-block w-100">
+                                <source src="{{ game.video_url }}" type="video/mp4">
+                                Ваш браузер не поддерживает воспроизведение видео.
+                            </video>
+                        </div>
+                    {% endif %}
+
+                    <!-- Кнопки действий -->
                     <div class="mb-4">
-                        <h4>Музыкальный трек</h4>
-                        <audio id="audio-player" controls class="d-block w-100">
-                            <source src="{{ game.music_url }}" type="audio/mpeg">
-                            Ваш браузер не поддерживает воспроизведение аудио.
-                        </audio>
+                        <a href="/games/{{ game.id }}/edit" class="btn btn-warning">Редактировать</a>
+                        <form action="/games/{{ game.id }}/delete" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту игру?');">Удалить</button>
+                        </form>
+                        <a href="/" class="btn btn-secondary">Вернуться к списку</a>
                     </div>
-                {% endif %}
+                </div>
+            </div>
+        </div>
 
-                <!-- Видео трейлер, если есть -->
-                {% if game.video_url %}
-                    <div class="mb-4">
-                        <h4>Видео трейлер</h4>
-                        <video controls class="d-block w-100">
-                            <source src="{{ game.video_url }}" type="video/mp4">
-                            Ваш браузер не поддерживает воспроизведение видео.
-                        </video>
-                    </div>
-                {% endif %}
+        <!-- Блок комментариев -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h4>Комментарии</h4>
 
-                <!-- Кнопки действий -->
-                <div class="mb-4">
-                    <a href="/games/{{ game.id }}/edit" class="btn btn-warning">Редактировать</a>
-                    <form action="/games/{{ game.id }}/delete" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту игру?');">Удалить</button>
+                <!-- Список комментариев -->
+                <div class="comment-section">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ comment.author }}</h5>
+                                    <p class="card-text">{{ comment.content }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Комментариев пока нет. Будьте первым!</p>
+                    {% endif %}
+                </div>
+
+                <!-- Форма для добавления комментария -->
+                <div class="mt-4">
+                    <h5>Оставить комментарий</h5>
+                    <form action="/games/{{ game.id }}/comment" method="post">
+                        <div class="form-group mb-3">
+                            <label for="author">Ваше имя:</label>
+                            <input type="text" class="form-control" id="author" name="author" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="content">Комментарий:</label>
+                            <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
                     </form>
-                    <a href="/" class="btn btn-secondary">Вернуться к списку</a>
                 </div>
             </div>
         </div>
@@ -65,25 +108,23 @@
                         'play', 'progress', 'current-time', 'duration', 'volume', 'settings',
                         'pip', 'mute', 'fullscreen'
                     ],
-                    seekTime: 10,  // Шаг перемотки в секундах
-                    speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },  // Настройки скорости воспроизведения
-                    tooltips: { controls: true },  // Всплывающие подсказки
-                    volume: 0.8,  // Начальный уровень громкости
-                    storage: { enabled: true, key: 'plyr_audio' },  // Сохранение состояния плеера в локальном хранилище
-                    clickToPlay: true, // Воспроизведение при клике на плеер
-                    keyboard: { focused: true, global: true }, // Управление с клавиатуры
-                    autoplay: false,  // Автоматическое воспроизведение
-                    muted: false, // Включить/выключить звук при загрузке
-                    captions: { active: true, language: 'auto' }, // Поддержка субтитров
-                    ads: { enabled: false } // Поддержка рекламы (если применимо)
+                    seekTime: 10,
+                    speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },
+                    tooltips: { controls: true },
+                    volume: 0.8,
+                    storage: { enabled: true, key: 'plyr_audio' },
+                    clickToPlay: true,
+                    keyboard: { focused: true, global: true },
+                    autoplay: false,
+                    muted: false,
+                    captions: { active: true, language: 'auto' },
+                    ads: { enabled: false }
                 });
 
-                // Пример кастомного события
                 player.on('play', () => {
                     console.log('Audio started playing');
                 });
 
-                // Пример обработки ошибок
                 player.on('error', (event) => {
                     console.error('An error occurred:', event.detail);
                 });
