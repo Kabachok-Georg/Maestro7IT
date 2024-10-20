@@ -50,8 +50,8 @@
 35. MakeUpperCase (8 kyu)
 36. Abbreviate a Two Word Name (8 kyu)
 37. Beginner - Reduce but Grow (8 kyu)
-38. 2
-39. 3
+38. Replace With Alphabet Position
+39. Count by X(8 kuy)
 
 
 ![5_kyu.png](img/5_kyu.png)
