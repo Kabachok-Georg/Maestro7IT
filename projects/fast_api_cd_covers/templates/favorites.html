@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранные игры</title>
+</head>
+<body>
+    <h1>Избранные игры</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <ul>
+            {% for game in favorites %}
+                <li>
+                    <h2>{{ game.title }}</h2>
+                    <p>{{ game.description }}</p>
+                    <form action="/games/{{ game.id }}/unfavorite" method="post">
+                        <button type="submit">Удалить из избранного</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

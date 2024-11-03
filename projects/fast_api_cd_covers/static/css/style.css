@@ -9,12 +9,6 @@ body {
     padding: 0;
 }
 
-h1, h4 {
-    color: #343a40;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
 /* Карточки */
 .card {
     border: none;
@@ -83,4 +77,18 @@ button:hover {
     .card-title {
         font-size: 1.25rem;
     }
+}
+
+.card {
+    position: relative; /* Убедитесь, что карточка является относительным контейнером для абсолютного позиционирования */
+}
+
+.btn-light {
+    border: none;
+    background: transparent;
+    transition: color 0.3s ease;
+}
+
+.btn-light:hover {
+    color: red; /* Цвет при наведении */
 }

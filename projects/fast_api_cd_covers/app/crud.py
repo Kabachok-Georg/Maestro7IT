@@ -6,11 +6,18 @@ CRUD операции
 from sqlalchemy.orm import Session
 from . import models, schemas, utils
 from typing import Optional
+from .models import FavoriteGame, User, Game, Comment
+from fastapi import HTTPException
 
 def get_game(db: Session, game_id: int):
     return db.query(models.Game).filter(models.Game.id == game_id).first()
 
 def create_game(db: Session, game: schemas.GameCreate):
+    # Проверяем, существует ли игра с таким же заголовком
+    existing_game = db.query(models.Game).filter(models.Game.title == game.title).first()
+    if existing_game:
+        raise HTTPException(status_code=400, detail="Игра с таким заголовком уже существует")
+
     db_game = models.Game(
         title=game.title,
         genre=game.genre,
@@ -72,3 +79,41 @@ def get_games(db: Session, title: Optional[str] = None, release_year: Optional[i
 
     return query.all()
 
+
+def add_to_favorites(db: Session, user_id: int, game_id: int):
+    existing_favorite = db.query(FavoriteGame).filter(FavoriteGame.user_id == user_id, FavoriteGame.game_id == game_id).first()
+
+    if existing_favorite:
+        return existing_favorite  # Или выбросьте исключение
+
+    favorite = FavoriteGame(user_id=user_id, game_id=game_id)
+    db.add(favorite)
+    db.commit()
+    db.refresh(favorite)
+    return favorite
+
+
+def remove_from_favorites(db: Session, user_id: int, game_id: int):
+    favorite = db.query(FavoriteGame).filter(
+        FavoriteGame.user_id == user_id,
+        FavoriteGame.game_id == game_id
+    ).first()
+
+    if favorite:
+        db.delete(favorite)
+        db.commit()
+    return favorite
+
+
+def get_favorites(db: Session, user_id: int):
+    # Получаем все избранные игры для данного пользователя
+    favorites = db.query(models.FavoriteGame).filter(models.FavoriteGame.user_id == user_id).all()
+
+    # Извлекаем информацию о каждой игре по ее ID
+    games = []
+    for favorite in favorites:
+        game = db.query(models.Game).filter(models.Game.id == favorite.game_id).first()
+        if game:
+            games.append(game)
+
+    return games

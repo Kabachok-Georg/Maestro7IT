@@ -8,12 +8,18 @@
         <h1>{{ game.title }}</h1>
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card position-relative">
                     {% if game.photo_url %}
                         <img src="{{ game.photo_url }}" class="img-fluid rounded-photo" alt="Изображение {{ game.title }}">
                     {% else %}
                         <img src="/static/images/default_cover.jpg" class="img-fluid rounded-photo" alt="Изображение {{ game.title }}">
                     {% endif %}
+                    <!-- Кнопка "Добавить в избранное" -->
+                    <form action="/games/{{ game.id }}/favorite" method="post" class="position-absolute top-0 end-0 m-3">
+                        <button type="submit" class="btn btn-light" title="Добавить в избранное">
+                            <i class="bi bi-heart" style="font-size: 1.5rem;"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-6">
@@ -95,7 +101,7 @@
     </div>
 
     <!-- Подключение скриптов -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 
 from .utils import hash_password, verify_password
 from . import models, schemas, crud, auth
-from .auth import create_access_token
+from .auth import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, verify_password
 from .database import engine, SessionLocal, get_db
 
 import logging
@@ -199,16 +199,62 @@ async def login_form(request: Request):
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = crud.get_user_by_username(db, username=form_data.username)
 
-    if not user:
-        logger.warning("Пользователь не найден")
-        raise HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверное имя пользователя или пароль")
 
     if not verify_password(form_data.password, user.hashed_password):
-        logger.warning("Ошибка проверки пароля")
-        raise HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверное имя пользователя или пароль")
 
-    access_token_expires = timedelta(minutes=15)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
-    logger.info(f"Пользователь {user.username} успешно вошел")
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+# Обработчик добавления игры в избранное
+@app.post("/games/{game_id}/favorite")
+async def favorite_game(
+    game_id: int,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(auth.get_current_user)
+):
+    # Проверка существования игры в базе данных
+    game = crud.get_game(db, game_id)
+    if game is None:
+        logger.warning(f"Игра с ID {game_id} не найдена")
+        raise HTTPException(status_code=404, detail="Игра не найдена")
+
+    # Логика добавления игры в избранное для текущего пользователя
+    # Например, добавление записи в таблицу избранного
+    crud.add_to_favorites(db=db, user_id=current_user.id, game_id=game_id)
+
+    logger.info(f"Игра с ID {game_id} добавлена в избранное пользователем {current_user.username}")
+    return {"message": "Игра добавлена в избранное"}
+
+
+@app.get("/favorites", response_class=HTMLResponse)
+async def read_favorites(request: Request, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
+    favorites = crud.get_favorites(db, user_id=current_user.id)
+    if not favorites:
+        return templates.TemplateResponse("favorites.html", {"request": request, "message": "У вас нет избранных игр."})
+    return templates.TemplateResponse("favorites.html", {"request": request, "favorites": favorites})
+
+
+# Обработчик удаления игры из избранного
+@app.post("/games/{game_id}/unfavorite")
+async def unfavorite_game(
+    game_id: int,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(auth.get_current_user)
+):
+    # Проверка существования игры в базе данных
+    game = crud.get_game(db, game_id)
+    if game is None:
+        logger.warning(f"Игра с ID {game_id} не найдена")
+        raise HTTPException(status_code=404, detail="Игра не найдена")
+
+    # Логика удаления игры из избранного для текущего пользователя
+    crud.remove_from_favorites(db=db, user_id=current_user.id, game_id=game_id)
+
+    logger.info(f"Игра с ID {game_id} удалена из избранного пользователем {current_user.username}")
+    return {"message": "Игра удалена из избранного"}
