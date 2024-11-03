@@ -1,0 +1,61 @@
+/* dark-theme.css */
+body {
+    background-color: #343a40; /* Темный фон */
+    color: #ffffff; /* Белый текст */
+}
+
+header {
+    background-color: #212529; /* Очень темный фон для шапки */
+}
+
+.nav-link {
+    color: #ffffff; /* Белый цвет для ссылок */
+}
+
+.theme-switcher .btn {
+    background-color: #007bff; /* Синий фон для переключателя тем */
+    color: #ffffff; /* Белый текст для переключателя тем */
+}
+
+.btn-outline-light {
+    border-color: #ffffff; /* Белая рамка для кнопок */
+    color: #ffffff; /* Белый текст для кнопок */
+}
+
+.btn-warning {
+    background-color: #ffc107; /* Желтый фон для кнопок */
+    border-color: #ffc107; /* Цвет рамки для кнопок */
+}
+
+.card {
+    position: relative; /* Для позиционирования псевдоэлемента */
+    background-color: #495057; /* Темный фон карточек */
+    color: #ffffff; /* Белый текст внутри карточек */
+    border: 3px solid #c5e2ff; /* Рамка карточек */
+    overflow: hidden; /* Скрыть элементы, выходящие за пределы карточки */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 90%);
+    opacity: 0; /* Начальная прозрачность */
+    transition: opacity 0.3s; /* Плавный переход */
+    pointer-events: none; /* Позволить клики проходить мимо псевдоэлемента */
+}
+
+.card:hover::before {
+    opacity: 1; /* Показать градиент при наведении */
+}
+
+.card-title {
+    color: white; /* Белый текст внутри карточек */
+}
+
+.mb-4 {
+    color: white; /* Белый текст внутри карточек */
+}

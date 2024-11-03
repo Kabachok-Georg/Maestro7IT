@@ -25,7 +25,6 @@
                     <!-- Музыкальный трек, если есть -->
                     {% if game.music_url %}
                         <div class="mb-4">
-                            <h4>Музыкальный трек</h4>
                             <audio id="audio-player" controls class="d-block w-100">
                                 <source src="{{ game.music_url }}" type="audio/mpeg">
                                 Ваш браузер не поддерживает воспроизведение аудио.
@@ -36,7 +35,6 @@
                     <!-- Видео трейлер, если есть -->
                     {% if game.video_url %}
                         <div class="mb-4">
-                            <h4>Видео трейлер</h4>
                             <video controls class="d-block w-100">
                                 <source src="{{ game.video_url }}" type="video/mp4">
                                 Ваш браузер не поддерживает воспроизведение видео.

@@ -1,0 +1,53 @@
+/* purple-theme.css */
+body {
+    background-color: #e8d5ff; /* Светлый фиолетовый фон */
+    color: #4b3f72; /* Тёмный текст */
+}
+
+header {
+    background-color: #6f2c91; /* Фиолетовый фон для шапки */
+}
+
+.nav-link {
+    color: #6f2c91; /* Фиолетовый цвет для ссылок */
+}
+
+.theme-switcher .btn {
+    background-color: #6f2c91; /* Фиолетовый фон для переключателя тем */
+    color: #ffffff; /* Белый текст для переключателя тем */
+}
+
+.btn-outline-light {
+    border-color: #6f2c91; /* Цвет рамки для кнопок */
+    color: #6f2c91; /* Цвет текста для кнопок */
+}
+
+.btn-warning {
+    background-color: #9457ff; /* Фиолетовый фон для кнопок */
+    border-color: #9457ff; /* Цвет рамки для кнопок */
+}
+
+.card {
+    position: relative; /* Для позиционирования псевдоэлемента */
+    border: 3px solid #dee2e6; /* Рамка карточек */
+    background-color: #d4c4e5; /* Светлая фиолетовая карточка */
+    color: #212529; /* Темный текст внутри карточек */
+    overflow: hidden; /* Скрыть элементы, выходящие за пределы карточки */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 90%);
+    opacity: 0; /* Начальная прозрачность */
+    transition: opacity 0.3s; /* Плавный переход */
+    pointer-events: none; /* Позволить клики проходить мимо псевдоэлемента */
+}
+
+.card:hover::before {
+    opacity: 1; /* Показать градиент при наведении */
+}

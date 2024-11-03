@@ -1,0 +1,53 @@
+/* orange-theme.css */
+body {
+    background-color: #ffe5d0; /* Светлый оранжевый фон */
+    color: #333333; /* Тёмный текст */
+}
+
+header {
+    background-color: #ff6f30; /* Оранжевый фон для шапки */
+}
+
+.nav-link {
+    color: #ff6f30; /* Оранжевый цвет для ссылок */
+}
+
+.theme-switcher .btn {
+    background-color: #ff6f30; /* Оранжевый фон для переключателя тем */
+    color: #ffffff; /* Белый текст для переключателя тем */
+}
+
+.btn-outline-light {
+    border-color: #ff6f30; /* Цвет рамки для кнопок */
+    color: #ff6f30; /* Цвет текста для кнопок */
+}
+
+.btn-warning {
+    background-color: #ff8c00; /* Оранжевый фон для кнопок */
+    border-color: #ff8c00; /* Цвет рамки для кнопок */
+}
+
+.card {
+    position: relative; /* Для позиционирования псевдоэлемента */
+    background-color: #fff5e6; /* Светлая оранжевая карточка */
+    color: #333333; /* Тёмный текст внутри карточек */
+    border: 3px solid #c5e2ff; /* Рамка карточек */
+    overflow: hidden; /* Скрыть элементы, выходящие за пределы карточки */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 90%);
+    opacity: 0; /* Начальная прозрачность */
+    transition: opacity 0.3s; /* Плавный переход */
+    pointer-events: none; /* Позволить клики проходить мимо псевдоэлемента */
+}
+
+.card:hover::before {
+    opacity: 1; /* Показать градиент при наведении */
+}

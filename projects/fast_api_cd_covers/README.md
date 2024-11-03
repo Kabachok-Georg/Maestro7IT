@@ -94,13 +94,13 @@ games - Это массив, содержащий объекты, каждый �
 
 Установка зависимостей:
 ```
-`pip install -r requirements.txt`
+pip install -r requirements.txt
 pip install fastapi sqlalchemy passlib bcrypt jose uvicorn
 ```
 
 Запустите FastAPI приложение с помощью Uvicorn:
 ```
-`uvicorn app.main:app # --reload`
+uvicorn app.main:app # --reload
 ```
 
 Главная страница Fast API:
