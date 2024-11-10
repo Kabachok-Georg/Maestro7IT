@@ -3,7 +3,7 @@
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from projects.fast_api_cd_covers.app.models import Game
+from projects.fast_api_cd_covers.app.models import Base, Game
 from projects.fast_api_cd_covers.app.schemas import GameCreate
 
 # Замените строку подключения на вашу
@@ -13,6 +13,8 @@ DATABASE_URL = "sqlite:///./games.db"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# Создаем таблицы, если они еще не существуют
+Base.metadata.create_all(bind=engine)
 
 def load_data_from_json(json_file: str):
     # Создаем сессию базы данных
@@ -55,7 +57,6 @@ def load_data_from_json(json_file: str):
     # Сохраняем изменения в базе данных
     db.commit()
     db.close()
-
 
 if __name__ == "__main__":
     # Замените 'data.json' на путь к вашему JSON файлу

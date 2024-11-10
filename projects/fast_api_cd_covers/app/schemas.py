@@ -41,3 +41,24 @@ class User(UserBase):
 
     class Config:
         from_attributes = True
+
+class RatingCreate(BaseModel):
+    value: float
+
+    class Config:
+        from_attributes = True
+
+class CommentBase(BaseModel):
+    author: str
+    content: str
+    rating: Optional[int] = 0
+
+class CommentCreate(CommentBase):
+    pass
+
+class Comment(CommentBase):
+    id: int
+    game_id: int
+
+    class Config:
+        from_attributes = True

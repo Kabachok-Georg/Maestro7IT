@@ -92,3 +92,30 @@ button:hover {
 .btn-light:hover {
     color: red; /* Цвет при наведении */
 }
+
+
+
+/* Стили для звезд */
+.star {
+    font-size: 24px;
+    color: gray;  /* Неактивные звезды */
+    cursor: pointer;
+    transition: color 0.3s ease;  /* Плавный переход цвета */
+}
+
+.star.active {
+    color: gold;  /* Активные звезды */
+}
+
+.star:hover {
+    color: gold;  /* Цвет при наведении */
+}
+
+.stars i {
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+.stars .active {
+    color: gold;
+}

@@ -13,9 +13,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from sqlalchemy.orm import Session
 
+from .models import Game, Comment, Rating
 from .utils import hash_password, verify_password
 from . import models, schemas, crud, auth
-from .auth import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, verify_password
+from .auth import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from .database import engine, SessionLocal, get_db
 
 import logging
@@ -70,7 +71,7 @@ async def add_game_form(request: Request):
     return templates.TemplateResponse("add_game.html", {"request": request})
 
 
-# Обработчик добавления новой игры
+# Пример функции для добавления игры с улучшенным логированием
 @app.post("/add", response_class=HTMLResponse)
 async def create_game(
     request: Request,
@@ -83,28 +84,36 @@ async def create_game(
     music_url: Optional[str] = Form(None),
     video_url: Optional[str] = Form(None)
 ):
-    new_game = schemas.GameCreate(
-        title=title,
-        genre=genre,
-        release_year=release_year,
-        description=description,
-        photo_url=photo_url,
-        music_url=music_url,
-        video_url=video_url
-    )
-    crud.create_game(db=db, game=new_game)
-    logger.info(f"Игра {title} добавлена")
-    return RedirectResponse(url="/", status_code=303)
+    try:
+        new_game = schemas.GameCreate(
+            title=title,
+            genre=genre,
+            release_year=release_year,
+            description=description,
+            photo_url=photo_url,
+            music_url=music_url,
+            video_url=video_url
+        )
+        crud.create_game(db=db, game=new_game)
+        logger.info(f"Игра {title} добавлена")
+        return RedirectResponse(url="/", status_code=303)
+    except Exception as e:
+        logger.error(f"Ошибка при добавлении игры: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка при добавлении игры")
 
 
-# Детальная страница игры
+# Пример улучшенной функции для получения данных о игре с обработкой ошибок
 @app.get("/games/{game_id}", response_class=HTMLResponse)
 async def read_game(request: Request, game_id: int, db: Session = Depends(get_db)):
-    game = crud.get_game(db, game_id)
-    if not game:
-        logger.warning(f"Игра с ID {game_id} не найдена")
-        return templates.TemplateResponse("error.html", {"request": request, "error": "Игра не найдена"}, status_code=404)
-    return templates.TemplateResponse("game_detail.html", {"request": request, "game": game})
+    try:
+        game = crud.get_game(db, game_id)
+        if not game:
+            logger.warning(f"Игра с ID {game_id} не найдена")
+            return templates.TemplateResponse("error.html", {"request": request, "error": "Игра не найдена"}, status_code=404)
+        return templates.TemplateResponse("game_detail.html", {"request": request, "game": game})
+    except Exception as e:
+        logger.error(f"Ошибка при получении игры с ID {game_id}: {e}")
+        raise HTTPException(status_code=500, detail="Ошибка сервера")
 
 
 # Форма редактирования игры
@@ -151,7 +160,7 @@ async def update_game(
 
 # Обработчик удаления игры
 @app.post("/games/{game_id}/delete", response_class=HTMLResponse)
-async def delete_game(game_id: int, db: Session = Depends(get_db)):
+async def delete_game(request: Request, game_id: int, db: Session = Depends(get_db)):
     deleted_game = crud.delete_game(db, game_id)
     if not deleted_game:
         logger.warning(f"Ошибка удаления: игра с ID {game_id} не найдена")
@@ -174,7 +183,7 @@ async def register_user(
     username: str = Form(...),
     email: str = Form(...),
     password: str = Form(...),
-    password_repeat: str = Form(...)
+    password_repeat: str = Form(...),
 ):
     if password != password_repeat:
         return templates.TemplateResponse("register.html", {"request": request, "error": "Пароли не совпадают"})
@@ -183,7 +192,7 @@ async def register_user(
     if user:
         return templates.TemplateResponse("register.html", {"request": request, "error": "Пользователь уже существует"})
 
-    hashed_password = hash_password(password)
+    hashed_password = hash_password(password)  # Используем функцию из utils.py
     crud.create_user(db, schemas.UserCreate(username=username, email=email, password=hashed_password))
     logger.info(f"Пользователь {username} зарегистрирован")
     return RedirectResponse(url="/login", status_code=303)
@@ -202,7 +211,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверное имя пользователя или пароль")
 
-    if not verify_password(form_data.password, user.hashed_password):
+    if not verify_password(form_data.password, user.hashed_password):  # Используем функцию из utils.py
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверное имя пользователя или пароль")
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -224,37 +233,28 @@ async def favorite_game(
         logger.warning(f"Игра с ID {game_id} не найдена")
         raise HTTPException(status_code=404, detail="Игра не найдена")
 
-    # Логика добавления игры в избранное для текущего пользователя
-    # Например, добавление записи в таблицу избранного
-    crud.add_to_favorites(db=db, user_id=current_user.id, game_id=game_id)
-
+    # Добавление игры в избранное пользователя
+    crud.add_game_to_favorites(db=db, user_id=current_user.id, game_id=game_id)
     logger.info(f"Игра с ID {game_id} добавлена в избранное пользователем {current_user.username}")
-    return {"message": "Игра добавлена в избранное"}
+    return RedirectResponse(url=f"/games/{game_id}", status_code=303)
 
 
-@app.get("/favorites", response_class=HTMLResponse)
-async def read_favorites(request: Request, db: Session = Depends(get_db), current_user: schemas.User = Depends(auth.get_current_user)):
-    favorites = crud.get_favorites(db, user_id=current_user.id)
-    if not favorites:
-        return templates.TemplateResponse("favorites.html", {"request": request, "message": "У вас нет избранных игр."})
-    return templates.TemplateResponse("favorites.html", {"request": request, "favorites": favorites})
-
-
-# Обработчик удаления игры из избранного
-@app.post("/games/{game_id}/unfavorite")
-async def unfavorite_game(
-    game_id: int,
-    db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_user)
-):
-    # Проверка существования игры в базе данных
-    game = crud.get_game(db, game_id)
+@app.get("/games/{game_id}", response_class=HTMLResponse)
+async def read_game(game_id: int, db: Session = Depends(get_db)):
+    game = db.query(Game).filter(Game.id == game_id).first()
     if game is None:
-        logger.warning(f"Игра с ID {game_id} не найдена")
-        raise HTTPException(status_code=404, detail="Игра не найдена")
+        raise HTTPException(status_code=404, detail="Game not found")
+    comments = db.query(Comment).filter(Comment.game_id == game_id).all()
+    return templates.TemplateResponse("game_detail.html", {"request": {}, "game": game, "comments": comments})
 
-    # Логика удаления игры из избранного для текущего пользователя
-    crud.remove_from_favorites(db=db, user_id=current_user.id, game_id=game_id)
+@app.post("/games/{game_id}/comment")
+async def add_comment(game_id: int, author: str = Form(...), content: str = Form(...), rating: int = Form(0), db: Session = Depends(get_db)):
+    game = db.query(Game).filter(Game.id == game_id).first()
+    if game is None:
+        raise HTTPException(status_code=404, detail="Game not found")
 
-    logger.info(f"Игра с ID {game_id} удалена из избранного пользователем {current_user.username}")
-    return {"message": "Игра удалена из избранного"}
+    new_comment = Comment(author=author, content=content, rating=rating, game_id=game_id)
+    db.add(new_comment)
+    db.commit()
+    db.refresh(new_comment)
+    return {"message": "Comment added successfully"}

@@ -117,3 +117,17 @@ def get_favorites(db: Session, user_id: int):
             games.append(game)
 
     return games
+
+def add_rating(db: Session, rating: schemas.RatingCreate, game_id: int, user_id: int):
+    db_rating = models.Rating(value=rating.value, game_id=game_id, user_id=user_id)
+    db.add(db_rating)
+    db.commit()
+    db.refresh(db_rating)
+    return db_rating
+
+def get_average_rating(db: Session, game_id: int):
+    ratings = db.query(models.Rating).filter(models.Rating.game_id == game_id).all()
+    if ratings:
+        avg_rating = sum(rating.value for rating in ratings) / len(ratings)
+        return avg_rating
+    return None
