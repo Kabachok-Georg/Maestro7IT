@@ -1,12 +1,17 @@
 # Библиотека игровых проектов на Fast API (добавление в избранное) 
 
-![img.png](img/fast_api.png)
+![fast_api](img/fast_api.png)
 
-![img.png](img/index_v1.png)
+![index_v1](img/index_v1.png)
 
-![edit_game_detail.png](img/edit_game_detail.png)
+![edit_game_detail](img/edit_game_detail.png)
 
-![add_game_detail.png](img/add_game_detail.png)
+![add_game_detail](img/add_game_detail.png)
+
+![themes](img/themes.png)
+
+![ratings](img/rating.png)
+
 
 ## Описание проекта:
 
