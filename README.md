@@ -57,10 +57,10 @@
 ![5_kyu.png](img/5_kyu.png)
 
 40. Count of positives sum of negatives (8 kuy)
-41. Highest and lowest( 7 kuy)
-42. Jaden Casing strings( 7 kuy)
-43. 4
-44. 5
+41. Highest and lowest (7 kuy)
+42. Jaden Casing strings (7 kuy)
+43. Reversed Strings (8 kuy)
+44. List Filtering(7 kuy)
 45. 6
 46. 7
 
