@@ -61,9 +61,16 @@
 42. Jaden Casing strings (7 kuy)
 43. Reversed Strings (8 kuy)
 44. List Filtering(7 kuy)
-45. 6
-46. 7
 
+45. Calculating with Functions (5 kuy)
+46. 
+47. 
+48. 
+49. 
+50. 
+51. 
+52. 
+53. 
 
 
 ![dupley_maxim_igorevich](img/dupley_maxim_igorevich.png)
