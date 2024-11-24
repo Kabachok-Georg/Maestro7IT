@@ -63,6 +63,8 @@
 44. List Filtering(7 kuy)
 
 45. Calculating with Functions (5 kuy)
+
+![5_kuy](img/5_kuy.png)
 46. 
 47. 
 48. 
