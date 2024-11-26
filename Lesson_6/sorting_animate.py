@@ -26,11 +26,11 @@ class Block(Turtle):
         Turtle.__init__(self, shape="square", visible=False)
         self.pu()
         self.shapesize(size * 1.5, 1.5, 2) # square-->rectangle
-        self.fillcolor("orange")
+        self.fillcolor("blue")
         self.st()
 
     def glow(self):
-        self.fillcolor("purple")
+        self.fillcolor("orange")
 
     def unglow(self):
         self.fillcolor("grey")
@@ -44,7 +44,7 @@ class Shelf(list):
     def __init__(self, y):
         "create a shelf. y is y-position of first block"
         self.y = y
-        self.x = -150
+        self.x = -350
 
     def push(self, d):
         width, _, _ = d.shapesize()
