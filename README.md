@@ -74,6 +74,7 @@
 52. 
 53. 
 
+![img.png](img.png)
 
 ![dupley_maxim_igorevich](img/dupley_maxim_igorevich.png)
 
