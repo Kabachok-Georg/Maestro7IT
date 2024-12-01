@@ -116,4 +116,4 @@ def closest_pair(points):
 
 # TODO: Заметки
 ## Autor: Danilov George
-## Date: 30.11.2024
+## Date: 01.12.2024

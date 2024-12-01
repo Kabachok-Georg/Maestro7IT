@@ -70,4 +70,4 @@ def dir_reduc(arr):
 
 # TODO: Заметки
 ## Autor: Danilov George
-## Date: 30.11.2024
+## Date: 01.12.2024

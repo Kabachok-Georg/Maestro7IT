@@ -27,4 +27,4 @@ def in_array(a1, a2):
 
 # TODO: Заметки
 ## Autor: Danilov George
-## Date: 30.11.2024
+## Date: 01.12.2024
